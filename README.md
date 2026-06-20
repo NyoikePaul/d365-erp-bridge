@@ -1,21 +1,42 @@
-# D365 ERP–Accounting Bridge
+# 🔷 D365 ERP–Accounting Bridge
 
-A structured learning repo for Microsoft Dynamics 365 Finance & Operations, focused on the **ERP ↔ Accounting bridge** role — understanding how business transactions in ERP modules post to the General Ledger, and how to integrate, extend, and report on D365 data.
+![Microsoft Dynamics 365](https://img.shields.io/badge/Microsoft%20Dynamics%20365-0078D4?style=for-the-badge&logo=microsoft&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Azure](https://img.shields.io/badge/Azure%20AD-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-## Role context
+> **Role:** ERP IT — Bridge between the Accounting team and Microsoft Dynamics 365 Finance & Operations at PlanTech.
 
-> **PlanTech / ERP IT** — bridge between the accounting team and D365 F&O.
-
-Your core responsibilities:
-- Translate accounting requirements into D365 configuration
-- Debug why transactions are posting incorrectly (or not at all)
-- Build and maintain integrations (DMF imports, OData API, Power Automate)
-- Create custom Electronic Reports for accounting exports
-- Write X++ extensions when config alone isn't enough
+This repository is a structured knowledge base and integration toolkit for working with D365 F&O — covering finance configuration, ERP transaction flows, API integrations, and X++ extensions.
 
 ---
 
-## Repo structure
+## 📋 Table of Contents
+
+- [Role Overview](#role-overview)
+- [Repo Structure](#repo-structure)
+- [Learning Roadmap](#learning-roadmap)
+- [Quick Start](#quick-start)
+- [Key Concepts](#key-concepts)
+- [Resources](#resources)
+
+---
+
+## 🎯 Role Overview
+
+As ERP IT at PlanTech, the core responsibilities are:
+
+| Responsibility | Description |
+|----------------|-------------|
+| 🔧 Configuration | Translate accounting requirements into D365 setup |
+| 🐛 Debugging | Trace why transactions post incorrectly to the GL |
+| 🔗 Integration | Build DMF imports, OData API pipelines, Power Automate flows |
+| 📊 Reporting | Create Electronic Reports for accounting exports |
+| 💻 Development | Write X++ extensions when config alone is not enough |
+
+---
+
+## 📁 Repo Structure
 d365-erp-bridge/
 
 ├── docs/
@@ -30,9 +51,9 @@ d365-erp-bridge/
 
 ├── scripts/
 
-│   ├── odata/                     # Python scripts hitting D365 OData endpoints
+│   ├── odata/                     # Python scripts for D365 OData endpoints
 
-│   ├── dmf/                       # DMF data package templates & import scripts
+│   ├── dmf/                       # DMF data package templates
 
 │   └── power-automate/            # Flow JSON exports
 
@@ -42,23 +63,80 @@ d365-erp-bridge/
 
 ---
 
-## Learning roadmap
+## 🗺️ Learning Roadmap
 
-| Week | Focus | Key concept |
-|------|-------|-------------|
-| 1–2  | Finance fundamentals | Chart of accounts, posting profiles, financial dimensions |
-| 3–4  | Procure-to-pay | PO → receipt → vendor invoice → GL posting |
-| 5–6  | Order-to-cash | SO → packing slip → customer invoice → AR |
-| 7–8  | Integration tools | DMF imports, OData API queries |
-| 9–10 | Electronic Reporting | Custom export formats |
-| 11–12 | X++ basics | Chain of Command, event handlers |
+| Phase | Week | Focus | Key Deliverable |
+|-------|------|-------|----------------|
+| 1 | 1–2 | Navigate D365 | Understand modules, workspaces, legal entities |
+| 1 | 3–4 | Finance fundamentals | Chart of accounts, posting profiles, dimensions |
+| 2 | 5–6 | Procure-to-pay | PO → receipt → vendor invoice → GL posting |
+| 2 | 7–8 | Order-to-cash | SO → packing slip → customer invoice → AR |
+| 3 | 9–10 | Integration tools | DMF imports, OData API queries |
+| 3 | 11–12 | Reporting & X++ | Electronic Reporting, Chain of Command |
 
 ---
 
-## Quick reference
+## ⚡ Quick Start
 
-- [Microsoft Learn — D365 Finance](https://learn.microsoft.com/en-us/dynamics365/finance/)
-- [D365 OData endpoint reference](https://learn.microsoft.com/en-us/dynamics365/fin-ops-core/dev-itpro/data-entities/odata)
-- [DMF data entities catalog](https://learn.microsoft.com/en-us/dynamics365/fin-ops-core/dev-itpro/data-entities/data-entities)
-- [Electronic Reporting overview](https://learn.microsoft.com/en-us/dynamics365/fin-ops-core/dev-itpro/analytics/general-electronic-reporting)
-- [X++ language reference](https://learn.microsoft.com/en-us/dynamics365/fin-ops-core/dev-itpro/dev-ref/xpp-language-reference)
+### Prerequisites
+- Access to a D365 F&O sandbox environment
+- Python 3.10+
+- Azure app registration with D365 API permissions
+
+### Setup
+
+```bash
+# Clone the repo
+git clone https://github.com/NyoikePaul/d365-erp-bridge.git
+cd d365-erp-bridge
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Configure environment
+cp .env.example .env
+# Edit .env with your D365 credentials
+```
+
+---
+
+## 🧠 Key Concepts
+
+### Posting Profiles
+Every transaction in D365 hits the GL through a posting profile.
+When accounting reports a wrong posting — this is always where you start.
+
+### Financial Dimensions
+Tags (Department, Cost Center, Project) attached to every GL transaction.
+They flow automatically from source document → invoice → GL entry.
+
+### Data Entities (DMF)
+Structured views over D365 tables used for bulk import/export.
+Key entities: `GeneralJournalAccountEntry`, `VendorV2`, `CustomerV3`, `MainAccount`.
+
+### OData API
+D365 exposes all data via OData v4 REST endpoints.
+Base URL: `https://{env}.operations.dynamics.com/data/{EntityName}`
+
+---
+
+## 📚 Resources
+
+| Resource | Link |
+|----------|------|
+| Microsoft Learn — D365 Finance | [learn.microsoft.com](https://learn.microsoft.com/en-us/dynamics365/finance/) |
+| OData endpoint reference | [docs](https://learn.microsoft.com/en-us/dynamics365/fin-ops-core/dev-itpro/data-entities/odata) |
+| DMF data entities catalog | [docs](https://learn.microsoft.com/en-us/dynamics365/fin-ops-core/dev-itpro/data-entities/data-entities) |
+| Electronic Reporting overview | [docs](https://learn.microsoft.com/en-us/dynamics365/fin-ops-core/dev-itpro/analytics/general-electronic-reporting) |
+| X++ language reference | [docs](https://learn.microsoft.com/en-us/dynamics365/fin-ops-core/dev-itpro/dev-ref/xpp-language-reference) |
+| MB-310 Certification | [learn.microsoft.com](https://learn.microsoft.com/en-us/certifications/exams/mb-310/) |
+
+---
+
+## 🏷️ Topics
+
+`dynamics-365` `microsoft-erp` `d365-finance` `accounting` `erp-integration` `odata` `x-plus-plus` `dmf` `power-automate` `kenya` `plantech`
+
+---
+
+*Maintained by [@NyoikePaul](https://github.com/NyoikePaul) — ERP IT, PlanTech*
