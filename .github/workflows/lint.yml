@@ -1,0 +1,41 @@
+name: Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install lint tools
+        run: pip install ruff
+      - name: Run ruff
+        run: ruff check scripts/
+
+  lint-markdown:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lint markdown
+        uses: DavidAnson/markdownlint-cli2-action@v16
+        with:
+          globs: "**/*.md"
+
+  validate-json:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate JSON and notebook files
+        run: |
+          for f in $(find . -name "*.json" -o -name "*.ipynb"); do
+            python3 -c "import json; json.load(open('$f'))" || exit 1
+          done
+          echo "All JSON/notebook files are valid."
