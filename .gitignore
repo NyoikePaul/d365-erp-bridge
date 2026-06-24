@@ -7,3 +7,39 @@ scripts/odata/output/
 .ipynb_checkpoints/
 .venv/
 venv/
+
+# Python
+*.py[cod]
+*.class
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual env
+.venv
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints
+*.ipynb.log
+
+# D365 specific
+*.csv.bak
+scripts/odata/*.json
+scripts/dmf/*.zip
