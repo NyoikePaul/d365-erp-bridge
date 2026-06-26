@@ -1,0 +1,28 @@
+{
+  "flow_name": "New vendor created -> approval before activation",
+  "description": "Routes every new vendor record to the Finance lead for approval before it is usable in purchase orders.",
+  "trigger": {
+    "connector": "Dynamics 365 Finance and Operations",
+    "trigger_type": "When a record is created",
+    "entity": "VendorV2"
+  },
+  "steps": [
+    {
+      "step": 1,
+      "connector": "Approvals",
+      "action": "Start and wait for an approval",
+      "config": {
+        "approval_type": "Approve/Reject - First to respond",
+        "approver": "finance-lead@plantechkenya.com"
+      }
+    },
+    {
+      "step": 2,
+      "connector": "Control",
+      "action": "Condition",
+      "config": {
+        "if": "Outcome equals Approve"
+      }
+    }
+  ]
+}

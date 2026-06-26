@@ -1,0 +1,31 @@
+{
+  "flow_name": "Vendor invoice approved -> notify Teams",
+  "description": "Posts a summary message to the Finance Teams channel whenever a vendor invoice is approved in D365.",
+  "trigger": {
+    "connector": "Dynamics 365 Finance and Operations",
+    "trigger_type": "When a record is created or modified",
+    "entity": "VendorInvoiceJournalHeaders",
+    "filter": "ApprovalStatus eq 'Approved'"
+  },
+  "steps": [
+    {
+      "step": 1,
+      "connector": "Dynamics 365 Finance and Operations",
+      "action": "Get a record",
+      "config": {
+        "entity": "VendorInvoiceJournalHeaders",
+        "record_id": "@{triggerOutputs()?['body/InvoiceId']}"
+      }
+    },
+    {
+      "step": 2,
+      "connector": "Microsoft Teams",
+      "action": "Post message in a chat or channel",
+      "config": {
+        "team": "Finance",
+        "channel": "Accounts Payable",
+        "message_template": "Invoice {InvoiceId} for vendor {InvoiceAccount} approved - amount {InvoiceAmount} {CurrencyCode}."
+      }
+    }
+  ]
+}
